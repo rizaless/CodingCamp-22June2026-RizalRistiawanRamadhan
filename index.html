@@ -1,13 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <h1>Hello, World</h1>    
-</body>
 
+  <!-- ===== HEADER ===== -->
+  <header>
+    <h1>Expense & Budget Visualizer</h1>
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">Dark</button>
+  </header>
+
+  <main>
+
+    <!-- ===== TOTAL BALANCE ===== -->
+    <section class="card balance-card" aria-label="Total Balance">
+      <p class="balance-label">Total Balance</p>
+      <p id="total-balance" class="balance-amount">$0.00</p>
+    </section>
+
+    <!-- ===== ROW 1: Add Transaction | Transaction List ===== -->
+    <div class="grid-two">
+
+      <!-- Add Transaction Form -->
+      <section class="card" aria-label="Add Transaction">
+        <h2>Add Transaction</h2>
+        <form id="transaction-form" novalidate>
+
+          <div class="field">
+            <label for="item-name">Item Name</label>
+            <input type="text" id="item-name" placeholder="Required items" />
+            <span class="error" id="name-error">Please enter an item name.</span>
+          </div>
+
+          <div class="field">
+            <label for="amount">Amount ($)</label>
+            <input type="number" id="amount" placeholder="Required Amount" min="0.01" step="0.01" />
+            <span class="error" id="amount-error">Please enter a valid amount greater than 0.</span>
+          </div>
+
+          <div class="field">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="">— Select category —</option>
+              <option value="food">Food</option>
+              <option value="transport">Transport</option>
+              <option value="fun">Fun</option>
+            </select>
+            <span class="error" id="category-error">Please select a category.</span>
+          </div>
+
+          <button type="submit" class="btn-primary">+ Add Transaction</button>
+
+        </form>
+      </section>
+
+      <!-- Transaction List -->
+      <section class="card" aria-label="Transaction List">
+        <div class="list-header">
+          <h2>Transaction List</h2>
+          <div class="sort-control">
+            <label for="sort-select" class="sort-label">Sort by</label>
+            <select id="sort-select">
+              <option value="date-desc">Date (newest)</option>
+              <option value="date-asc">Date (oldest)</option>
+              <option value="amount-desc">Amount (high→low)</option>
+              <option value="amount-asc">Amount (low→high)</option>
+              <option value="category">Category (A–Z)</option>
+            </select>
+          </div>
+        </div>
+        <ul id="transaction-list" class="tx-list">
+          <li id="list-empty" class="empty-text">No transactions yet.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <!-- ===== ROW 2: Spending Chart | Monthly Summary ===== -->
+    <div class="grid-two">
+
+      <!-- Pie Chart -->
+      <section class="card" aria-label="Spending Chart">
+        <h2>Spending by Category</h2>
+        <div class="chart-wrapper">
+          <canvas id="spending-chart" width="220" height="220"></canvas>
+          <div id="chart-legend" class="chart-legend"></div>
+          <p id="chart-empty" class="empty-text">No data yet. Add a transaction.</p>
+        </div>
+      </section>
+
+      <!-- Monthly Summary -->
+      <section class="card" aria-label="Monthly Summary">
+        <h2>Monthly Summary</h2>
+        <p id="summary-empty" class="empty-text">No data yet. Add a transaction.</p>
+        <div class="summary-table-wrapper">
+          <table id="summary-table" class="summary-table" hidden>
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Food</th>
+                <th>Transport</th>
+                <th>Fun</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="summary-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
 </html>
